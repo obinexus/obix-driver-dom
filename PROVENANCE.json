@@ -1,0 +1,105 @@
+{
+  "package": "obix-driver-dom",
+  "dir": "driver/obix-driver-dom",
+  "importedBy": "scripts/recovery/import-packages.mjs",
+  "snapshot": "snap-20260924T142414Z",
+  "stage": "stage-2 lift-and-shift (base owner; later stages repair/merge)",
+  "sources": [
+    {
+      "label": "upstream:obix-monorepo-2026@4e5295a",
+      "repo": "obix-monorepo-2026",
+      "url": "https://github.com/obinexusmk2/obix-monorepo-2026",
+      "sha": "4e5295a09e3799f5490e1d655e15ab4bf865fbf7",
+      "path": "packages/obix-runtime",
+      "license": "MIT",
+      "licenseFileUpstream": false,
+      "filesImported": 3,
+      "filesExcluded": 2
+    }
+  ],
+  "originalManifest": {
+    "name": "obix-runtime",
+    "version": "0.2.1",
+    "license": "MIT",
+    "bin": null,
+    "scripts": {
+      "build": "tsc -p tsconfig.json"
+    }
+  },
+  "transforms": [
+    "package.json regenerated (lockstep version, exact internal pins, exports with \"types\" first, standard scripts)",
+    "tsconfig.json generated (NodeNext via tsconfig.base.json; DOM lib enabled: source uses DOM globals — reviewed for import-purity in Stage 3; removeComments: true, as the Level-0 lineage was built (its dist purity tests grep emitted JS))",
+    "internal specifiers renamed: none",
+    "relative imports given \".js\"/\"/index.js\" extensions: 0",
+    "LICENSE generated from the declared MIT license (upstream repo had no LICENSE file)"
+  ],
+  "localFixes": [
+    {
+      "stage": "stage-4",
+      "files": [
+        "src/morph.ts",
+        "src/delegate.ts",
+        "src/mount.ts",
+        "src/index.ts",
+        "test/*.test.mjs",
+        "README.md",
+        "package.json"
+      ],
+      "why": "authored DOM driver (Stage 4): keyed morph, delegated events, mount/update/unmount, managed runtime instances with MOUNTED; the original binding helpers are unchanged. 57 jsdom tests + 15 real-browser (Edge) tests in tests/browser."
+    },
+    {
+      "stage": "stage-5",
+      "files": [
+        "src/behaviors.ts",
+        "src/mount.ts",
+        "src/index.ts",
+        "test/behaviors.test.mjs"
+      ],
+      "why": "data-obix-on (several key-filtered bindings per element, @attr:name arguments, ! = preventDefault) and the markup-declared behaviours data-obix-roving / -follow-focus / -dismiss / -trap (+ autofocus, focus return): the WAI-ARIA APG keyboard and focus patterns implemented once for all components. jsdom tests: 66 in the package."
+    },
+    {
+      "stage": "stage-5",
+      "files": [
+        "src/behaviors.ts",
+        "src/delegate.ts",
+        "src/mount.ts",
+        "src/morph.ts",
+        "test/declarative.test.mjs",
+        "README.md"
+      ],
+      "why": "extends the Stage-5 driver: data-obix-then-focus (read before dispatch), data-obix-after / -after-paused timers, bubbling data-obix-on ({ bubble: true } in the delegator), .self, @prop:/@selected/@files/@form arguments, data-indeterminate, lazy registration of every behaviour listener from the markup (a click-only component adds one listener type). 84 jsdom tests; the 31 components run on it in Edge (tests/browser/components-*)."
+    }
+  ],
+  "scopeScrub": {
+    "rule": "scripts/recovery/scrub-rules.mjs (brief: no other OBINexus projects)",
+    "replacementsPerFile": {}
+  },
+  "authoredOverlay": [],
+  "excluded": [
+    "dist/**",
+    "node_modules/**",
+    "lockfiles",
+    "tsconfig*.json (regenerated)",
+    ".gitignore",
+    ".github/**",
+    "coverage/**"
+  ],
+  "unresolvedRelativeImports": [],
+  "note": "base = Level-0 binding runtime; DOM mount/update/unmount (keyed morph) is authored in Stage 4",
+  "renamedFrom": [
+    {
+      "name": "@obinexusltd/obix-driver-dom",
+      "dir": "driver/obix-driver-dom",
+      "stage": "unscoped-naming",
+      "why": "D-102 (2026-09-29): OBIX packages are named without an npm scope — previous name @obinexusltd/obix-driver-dom, current name obix-driver-dom (docs/recovery/unscoped-migration.md); the directory, version and exports are unchanged"
+    }
+  ],
+  "export": {
+    "from": "https://github.com/obinexusmk2/obix-monorepo",
+    "branch": "recovery/obix-api-preserving-rebuild",
+    "commit": "69cafc94910c1add865a520877617ac307668875",
+    "directory": "driver/obix-driver-dom",
+    "exportedBy": "scripts/release/export-repos.mjs",
+    "note": "a clean initial commit of this package; the monorepo history is not imported (D-103). Local machine paths in this record are replaced by <local workspace>."
+  }
+}

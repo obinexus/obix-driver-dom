@@ -21,8 +21,8 @@
     "README.md",
     "LICENSE",
     "test",
-    "!test/runtime.test.mjs",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "PROVENANCE.json"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",

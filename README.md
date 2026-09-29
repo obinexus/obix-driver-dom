@@ -76,8 +76,6 @@ Not verified: Chrome, Firefox and WebKit (only Edge/Chromium was available); scr
 npm install obix-driver-dom
 ```
 
-> **Not yet on npm.** The OBIX packages are prepared for publication and are published only on the owner's authorisation; until then this is the command the published package will answer to.
-
 ## API surface
 
 - `obix-driver-dom` — 14 value exports: `MOUNT_ATTRIBUTE`, `bindAria`, `bindAttr`, `bindBool`, `bindEvent`, `bindPresence`, `bindText`, `createBindingGroup`, `createDelegator`, `focusableWithin`, `getMounted`, `installBehaviors`, `morph`, `mount`
@@ -96,10 +94,11 @@ The architecture of OBIX — the package families and which packages are public 
 
 ## Testing
 
-- 6 test files ship in the npm package (`test/`): they are the evidence of the package's contract, published so that its verification can be read — not runtime code (no entry point reaches them).
-- Run them with `npm test` (`node --test "test/*.test.mjs"`) in the OBIX monorepo, which provides the test tooling (Node's test runner, TypeScript).
-- 1 test file is in the repository but not in the npm package, because it uses the monorepo's shared test harness, oracles or fixtures:
+- 7 test files ship in the npm package (`test/`): the evidence of the package's contract, published so that its verification can be inspected — not runtime code (no entry point reaches them).
+- **Standalone**: 6 of 7 — they read nothing outside the package.
+- **Need the OBIX development / test harness**: 1 — it reads the OBIX monorepo's shared harness, oracles or fixtures, so it does **not** run from an npm install or from this package's repository alone; it is shipped for inspection and provenance:
   - `test/runtime.test.mjs` — reads ../../../scripts/mini-dom.mjs, outside the package
+- Run them with `npm test` (`node --test "test/*.test.mjs"`) in the OBIX monorepo, which provides the test tooling (Node's test runner, TypeScript) and the harness.
 
 ## Documentation
 
@@ -110,7 +109,7 @@ The architecture of OBIX — the package families and which packages are public 
 
 - https://github.com/obinexus/obix-driver-dom — `git@github.com:obinexus/obix-driver-dom.git`
 - Issues: https://github.com/obinexus/obix-driver-dom/issues
-- The repository is a clean export of the package from the OBIX monorepo; its lineage (the monorepo commit it was exported from, the sources it was recovered from, earlier names) is in `PROVENANCE.json`.
+- The repository is a clean export of the package from the OBIX monorepo. Its lineage — the sources it was recovered from and its earlier names — is `PROVENANCE.json`, shipped in this package; the repository's copy also records the monorepo commit it was exported from.
 
 ## License
 
